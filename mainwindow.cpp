@@ -15,16 +15,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->freqComboBox->setItemData(0,inMinute);
-    ui->freqComboBox->setItemData(1,inHour);
-
-    CamShooter *camshooter = new CamShooter("D:/screens");
-    ui->pathLineEdit->setText(CamShooter::getPath());
-
-
-
-
-
 
 }
 
@@ -44,33 +34,33 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 void MainWindow::on_startButton_clicked()
 {
-    camshooter = new CamShooter("D:/screens");
+    CamShooter *camshooter = new CamShooter("D:/screens");
+
+    ui->pathLineEdit->setText(CamShooter::getPath());
+    ui->startButton->setEnabled(false);
+    ui->freqComboBox->setEnabled(false);
+    ui->freqSpinBox->setEnabled(false);
+    ui->stopButton->setEnabled(true);
 
 
 
 
-    if(ui->startButton->)
-    {
-        ui->startButton->setText("Cтоп");
-        ui->freqComboBox->setEnabled(false);
-        ui->freqSpinBox->setEnabled(false);
+    //QObject::connect(camshooter, SIGNAL(start(uint,QVariant)),camshooter, SLOT(on_start(uint,QVariant)));
+    QObject::connect(ui->stopButton, SIGNAL(clicked()),camshooter, SLOT(on_stop()));
+    QObject::connect(camshooter,SIGNAL(start(uint,int)),camshooter, SLOT(on_start(uint,int)));
 
+    emit camshooter->start(ui->freqSpinBox->value(),ui->freqComboBox->currentIndex());
 
-        camshooter = new CamShooter(CamShooter::getPath());
-        camshooter->start(ui->freqSpinBox->value(),ui->freqComboBox->currentData() );
-    }
-    else
-    {
-        ui->startButton->setText("Cтарт");
-        ui->freqComboBox->setEnabled(false);
-        ui->freqSpinBox->setEnabled(false);
-
-
-      //  camshooter->stop();
-        delete camshooter;
-    }
 }
 
 
 
 
+
+void MainWindow::on_stopButton_clicked()
+{
+    ui->startButton->setEnabled(true);
+    ui->freqComboBox->setEnabled(true);
+    ui->freqSpinBox->setEnabled(true);
+    ui->stopButton->setEnabled(false);
+}

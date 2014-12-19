@@ -49,7 +49,7 @@
      <rect>
       <x>7</x>
       <y>5</y>
-      <width>396</width>
+      <width>318</width>
       <height>20</height>
      </rect>
     </property>
@@ -126,13 +126,29 @@
     <property name="geometry">
      <rect>
       <x>330</x>
-      <y>31</y>
+      <y>4</y>
       <width>75</width>
       <height>24</height>
      </rect>
     </property>
     <property name="text">
      <string>Старт</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="stopButton">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>32</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Стоп</string>
     </property>
    </widget>
   </widget>

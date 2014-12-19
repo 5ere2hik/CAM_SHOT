@@ -5,8 +5,8 @@
 class QString;
 class QTimer;
 
-enum period {inMinute, inHour};
-Q_DECLARE_METATYPE(period)
+//enum period {inMinute, inHour};
+//Q_DECLARE_METATYPE(period)
 
 
 class CamShooter : public QObject
@@ -30,15 +30,19 @@ public:
     static void setPath(const QString p);
     static void setDefaultPath();
     static QString getPath();
-    void start(unsigned int times, QVariant per );
+
 
 
 
 signals:
 
+    void start(unsigned int times, int index );
+
+
+
 public slots:
     void on_timer_overflow();
-    void on_start();
+    void on_start(unsigned int times, int index);
     void on_stop();
 
 };

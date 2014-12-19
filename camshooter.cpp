@@ -16,7 +16,7 @@ QString CamShooter::path;// = QStandardPaths::locate(QStandardPaths::TempLocatio
 CamShooter::CamShooter(QObject *parent) :
     QObject(parent)
 {
-    //CamShooter::setDefaultPath();
+    qDebug() << "Creating CamShooter object";
     if(!QDir(CamShooter::path).exists())
     {
         qDebug() << "Folder doesn't exist. Creating folder...";
@@ -27,6 +27,7 @@ CamShooter::CamShooter(QObject *parent) :
 CamShooter::CamShooter(const QString folderPath, QObject *parent) :
     QObject(parent)
 {
+    qDebug() << "Creating CamShooter object";
     CamShooter::setPath(folderPath);
     if(!QDir(CamShooter::path).exists())
     {
@@ -37,7 +38,7 @@ CamShooter::CamShooter(const QString folderPath, QObject *parent) :
 
 CamShooter::~CamShooter()
 {
-    qDebug() << "deleting object";
+    qDebug() << "Deleting CamShooter object";
 }
 
 void CamShooter::setPath(const QString p)
@@ -75,17 +76,17 @@ void CamShooter::makePicture()
 
 }
 
-void CamShooter::start(unsigned int times,QVariant per)
+void CamShooter::on_start(unsigned int times,int index)
 {
     timer = new QTimer;
 
-    QObject::connect(timer, SIGNAL(timeout()),this,SLOT(timer_overflow()));
+    QObject::connect(timer, SIGNAL(timeout()),this,SLOT(on_timer_overflow()));
 
     unsigned int msecs;
 
-    if(per == inHour)
+    if(index == 1)
         msecs = (3600/times)*1000;
-    else if(per == inMinute)
+    else if(index == 0)
         msecs = (60/times)*1000;
     else
         msecs = 60000;
@@ -94,7 +95,14 @@ void CamShooter::start(unsigned int times,QVariant per)
     timer->start(msecs);
 }
 
-void CamShooter::timer_overflow()
+void CamShooter::on_timer_overflow()
 {
     this->makePicture();
 }
+
+void CamShooter::on_stop()
+{
+    timer->stop();
+    delete this;
+}
+
