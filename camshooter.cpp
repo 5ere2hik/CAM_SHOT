@@ -72,8 +72,6 @@ void CamShooter::makePicture()
     screenshot->save(CamShooter::getPath() +"/"+ QDateTime::currentDateTime().toString("dd.MM.yyyy - hh.mm.ss") +".png", "png");
 
     delete screenshot;
-
-
 }
 
 void CamShooter::on_start(unsigned int times,int index)

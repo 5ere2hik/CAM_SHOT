@@ -7,6 +7,7 @@
 #include "dialog.h"
 #include <QDebug>
 #include <QCloseEvent>
+#include "qglobalshortcut.h"
 
 
 
@@ -15,6 +16,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+
+    QObject::connect(ui->hideButton, SIGNAL(clicked()), this, SLOT(hide()));
 
 }
 
@@ -52,9 +56,6 @@ void MainWindow::on_startButton_clicked()
     emit camshooter->start(ui->freqSpinBox->value(),ui->freqComboBox->currentIndex());
 
 }
-
-
-
 
 
 void MainWindow::on_stopButton_clicked()
