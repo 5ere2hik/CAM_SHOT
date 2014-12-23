@@ -4,6 +4,7 @@
 #include <QObject>
 class QString;
 class QTimer;
+class QCamera;
 
 //enum period {inMinute, inHour};
 //Q_DECLARE_METATYPE(period)
@@ -17,7 +18,6 @@ private:
 
     static QString path;
     QTimer *timer;
-
 
 public:
     explicit CamShooter(QObject *parent = 0);

@@ -9,6 +9,8 @@
 #include <QGuiApplication>
 #include <QDateTime>
 #include <QTimer>
+#include <QtMultimedia/QCamera>
+#include <QtMultimediaWidgets/QCameraViewfinder>
 
 QString CamShooter::path;// = QStandardPaths::locate(QStandardPaths::TempLocation, QString(), QStandardPaths::LocateDirectory) + "camshots";
 
@@ -17,6 +19,7 @@ CamShooter::CamShooter(QObject *parent) :
     QObject(parent)
 {
     qDebug() << "Creating CamShooter object";
+    CamShooter::setDefaultPath();
     if(!QDir(CamShooter::path).exists())
     {
         qDebug() << "Folder doesn't exist. Creating folder...";
@@ -68,10 +71,10 @@ void CamShooter::makePicture()
 
     QPixmap *screenshot = new QPixmap(screen->grabWindow(0));
 
-
     screenshot->save(CamShooter::getPath() +"/"+ QDateTime::currentDateTime().toString("dd.MM.yyyy - hh.mm.ss") +".png", "png");
 
     delete screenshot;
+    screenshot = NULL;
 }
 
 void CamShooter::on_start(unsigned int times,int index)

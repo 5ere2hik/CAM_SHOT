@@ -8,6 +8,14 @@
 #include <QDebug>
 #include <QCloseEvent>
 #include "qglobalshortcut.h"
+#include <QFileDialog>
+
+#include <QCamera>
+#include <QCameraInfo>
+#include <QCameraViewfinder>
+#include <QMessageBox>
+#include <QPointer>
+
 
 
 
@@ -15,11 +23,13 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+
+
     ui->setupUi(this);
-
-
     QObject::connect(ui->hideButton, SIGNAL(clicked()), this, SLOT(hide()));
 
+
+    Camera cam(ui->verticalLayout);
 }
 
 MainWindow::~MainWindow()
@@ -38,7 +48,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 void MainWindow::on_startButton_clicked()
 {
-    CamShooter *camshooter = new CamShooter("D:/screens");
+    CamShooter *camshooter = new CamShooter();
 
     ui->pathLineEdit->setText(CamShooter::getPath());
     ui->startButton->setEnabled(false);
@@ -51,9 +61,10 @@ void MainWindow::on_startButton_clicked()
 
     //QObject::connect(camshooter, SIGNAL(start(uint,QVariant)),camshooter, SLOT(on_start(uint,QVariant)));
     QObject::connect(ui->stopButton, SIGNAL(clicked()),camshooter, SLOT(on_stop()));
-    QObject::connect(camshooter,SIGNAL(start(uint,int)),camshooter, SLOT(on_start(uint,int)));
+    //QObject::connect(camshooter,SIGNAL(start(uint,int)),camshooter, SLOT(on_start(uint,int)));
 
-    emit camshooter->start(ui->freqSpinBox->value(),ui->freqComboBox->currentIndex());
+    //emit camshooter->start(ui->freqSpinBox->value(),ui->freqComboBox->currentIndex());
+    camshooter->on_start(ui->freqSpinBox->value(),ui->freqComboBox->currentIndex());
 
 }
 

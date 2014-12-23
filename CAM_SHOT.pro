@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui multimedia multimediawidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -17,12 +17,19 @@ SOURCES += main.cpp\
     qglobalshortcut.cc \
     qglobalshortcut_win.cc \
     camshooter.cpp \
-    dialog.cpp
+    dialog.cpp \
+    camera.cpp \
+    selectdialog.cpp
 
 HEADERS  += mainwindow.h \
     qglobalshortcut.h \
     camshooter.h \
-    dialog.h
+    dialog.h \
+    camera.h \
+    selectdialog.h
 
 FORMS    += mainwindow.ui \
-    dialog.ui
+    dialog.ui \
+    selectdialog.ui
+
+QMAKE_CXXFLAGS += -std=c++0x

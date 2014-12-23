@@ -3,10 +3,12 @@
 
 #include <QMainWindow>
 #include "camshooter.h"
+#include "camera.h"
 
 namespace Ui {
 class MainWindow;
 }
+
 
 class MainWindow : public QMainWindow
 {
@@ -23,7 +25,7 @@ protected:
     virtual void closeEvent(QCloseEvent *event);
 private slots:
 
-   // void on_exit_clicked();
+
 
 
     void on_startButton_clicked();
